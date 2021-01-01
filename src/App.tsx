@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import useData from './utils/useData'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Container, Spinner } from 'react-bootstrap'
+import JobCard from './components/JobCard'
 
 function App() {
+  const [params, setParams] = useState({})
+  const [page, setPage] = useState(1)
+  const {data, loading, error} = useData(params, page)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container>
+      {loading && <Spinner
+        animation='border'
+        variant='primary'
+      />}
+      {error && <h1>Some error. Try again later or refreshing the page.</h1>}
+      {
+        data.map((job: any)=>(
+          <JobCard key={job.id} job={job}/>
+        ))
+      }
+    </Container>
+  )
 }
 
-export default App;
+export default App
