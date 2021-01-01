@@ -32,7 +32,7 @@ const JobCard = ({job}: any) => {
             </div>
           </div>
           <img
-            className='d-sm-none d-md-block'
+            className='d-sm-none d- d-md-block'
             height={50}
             src={job.company_logo}
             alt={job.company}
